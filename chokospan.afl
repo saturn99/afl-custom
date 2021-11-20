@@ -1,0 +1,22 @@
+num=26;
+A=Ref(C,num);
+
+dist = 1.5*ATR(10);
+
+for(i=BarCount-1;i>BarCount-num-1;i--)
+{
+	A[i] = Null;
+}
+
+upp = Cross(A,L);
+
+Plot(C,"Close",colorBlue,styleCandle);
+Plot(A,"ref 3",colorGreen,styleLine);
+
+
+for(i=0;i<BarCount;i++)
+{
+	if( upp[i] )
+		PlotText("Buy",i,L[i]-dist[i],colorBlue,colorYellow);
+}
+PlotShapes( upp * shapeUpArrow , colorGreen );

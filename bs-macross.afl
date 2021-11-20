@@ -1,0 +1,54 @@
+Plot(C,"Price", colorGold, styleLine );
+Plot(MA(C,20),"MA20", colorRed );
+
+btmp=Cross( C, MA(C,20 ) );
+stmp= Cross( MA( C, 20 ), C );
+
+dist = 1.5*ATR(10);
+
+delay = 0;
+Buy_acess = True;
+Sell_acess = False;
+delay_active = False;
+
+for( i = 0; i < BarCount; i++ )
+{
+	b[i] = 0;
+	s[i] = 0;
+	
+	if ( delay > 5 ){
+		delay = 0;
+		delay_active = False ;
+	}
+	
+	if ( delay_active == True ) {
+		btmp[i] = 0;
+		stmp[i] = 0;
+		delay = delay + 1;
+		continue;
+	}
+	
+	if( btmp[i] and Buy_acess == True ){
+		PlotText( "Buyn@" + C[ i ], i, L[ i ]-dist[i], colorGreen );
+		b[i] = True;
+		Buy_acess = False;
+		Sell_acess = True;
+		delay_active = True;
+	}
+	
+	if( stmp[i] AND Sell_acess == True ){
+		PlotText( "Selln@" + C[ i ], i, H[ i ]+dist[i], colorRed, colorYellow );
+		s[i] = True;
+		Buy_acess = True;
+		sell_acess = False;
+		delay_active = True;
+	}
+}
+
+Buy = btmp;
+Sell = stmp;
+
+//PlotShapes( Buy * shapeUpArrow + Sell * shapeDownArrow, IIf( Buy, colorGreen, colorRed ) );
+
+PlotShapes( b * shapeUpArrow , colorGreen );
+PlotShapes( s * shapeDownArrow, colorRed  );
