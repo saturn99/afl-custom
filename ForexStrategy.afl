@@ -1,0 +1,32 @@
+ma200 = MA(C,200) ;
+dist=1.5*ATR(10);
+ll = LLV( L,10);
+ 
+upper = False;
+upconter = 0;
+
+for ( i=11; i<BarCount; i++ )
+{
+	a[i] = 0;
+	
+	if ( C[i] > ma200[i] )
+		upconter++ ;
+	else
+		upconter = 0;
+	
+	
+	if ( upconter > 10 )
+	{
+		//a[i] = 1;
+		if ( L[i] < ll[i-1] )
+		{
+			a[i] = 1;
+		}
+	}
+	
+} //end for
+
+//Plot( C ,"close",colorBlue);
+Plot( C ,"close",colorBlue,syle=styleCandle);
+Plot(MA(C,200),"MA200",colorRed);
+PlotShapes( a * shapeUpArrow ,colorGold );

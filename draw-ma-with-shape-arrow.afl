@@ -1,0 +1,5 @@
+a=Cross( C, MA(C,200) );
+dist=1.5*ATR(10);
+Plot( C ,"MA200",colorBlue);
+Plot(MA(C,200),"MA200",colorRed);
+PlotShapes( a * shapeUpArrow ,colorGold );
