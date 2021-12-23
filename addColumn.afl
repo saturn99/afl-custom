@@ -1,0 +1,14 @@
+Filter = 1; // show all bars
+//
+m = MA( C, 10 );
+cond = Cross( C, m );
+cond2 = Cross( m,C);
+bi = BarIndex();
+//
+AddColumn( C, "Close" );
+AddColumn( m, "Mov Avg" );
+AddColumn( cond, "Condition");
+AddColumn( cond2, "Condition2");
+AddColumn( bi, "BarIndex" );
+AddColumn( ValueWhen( cond, bi ), "ValueWhen( cond, BarIndex() )" );
+AddColumn( ValueWhen( cond, Close), "ValueWhen( cond, Close )" );
