@@ -1,0 +1,22 @@
+_SECTION_BEGIN("PZO_ind");
+
+function PZOsc( Period )
+{
+	//R = sign( Close - Ref(Close,-1) ) * Close;
+	R = iif( C > Ref(C,-1) , C , -C);
+	vp = EMA(R,Period);
+	tv = EMA(Close,Period);
+	return Nz(100*vp/tv);
+}
+
+Period = Param("PZO Period",14,2,200);
+PZO = PZOsc(Period);
+
+Plot( PZo , "PZO" + _PARAM_VALUES(),colorBlue,styleThick );
+
+PlotGrid(60);
+Plot(40,"",colorLime);
+Plot(-40,"",colorRed);
+PlotGrid(-60);
+
+_SECTION_END();
